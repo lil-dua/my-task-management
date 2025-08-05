@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Task Management"
 include(":app")
- 
+include(":core:designsystem")
+include(":core:ui")
