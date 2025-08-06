@@ -21,5 +21,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Task Management"
 include(":app")
-include(":core:designsystem")
+include(":feature:login")
+include(":feature:settings")
+include(":feature:taskdetails")
+include(":feature:addtask")
 include(":core:ui")
+include(":core:data")
+include(":core:database")
+include(":core:common")
+include(":core:domain")
