@@ -11,4 +11,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.foundation)
+    implementation(libs.androidx.material3)
 }
