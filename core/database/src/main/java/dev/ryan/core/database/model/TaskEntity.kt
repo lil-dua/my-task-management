@@ -11,11 +11,5 @@ data class TaskEntity(
     val type: String,
     val date: Long,
     val time: Long,
-    val status: TaskStatus = TaskStatus.TODO
+    val status: String = "TODO"
 )
-
-enum class TaskStatus {
-    TODO,
-    IN_PROGRESS,
-    DONE
-}

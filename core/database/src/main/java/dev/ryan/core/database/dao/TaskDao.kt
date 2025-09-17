@@ -26,6 +26,9 @@ interface TaskDao {
     @Update
     suspend fun updateTask(task: TaskEntity)
 
+    @Query("UPDATE tasks SET status = :status WHERE id = :id")
+    suspend fun updateTaskStatus(id: Int, status: String)
+
     /**
      * Deletes rows in the db matching the specified [id]
      */
