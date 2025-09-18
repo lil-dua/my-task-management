@@ -1,4 +1,6 @@
 package dev.ryan.feature.settings
 
-class SettingsUiState {
-}
+data class SettingsUiState(
+    val notificationsEnabled: Boolean = true,
+    val darkThemeEnabled: Boolean = false
+)

@@ -36,7 +36,5 @@ fun HomeScreen(
 @DevicePreviews
 @Composable
 fun HomeScreenPreview() {
-    MaterialTheme {
-        HomeScreen()
-    }
+    HomeScreen()
 }
