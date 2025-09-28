@@ -11,10 +11,6 @@ import dev.ryan.core.database.model.TaskEntity
         TaskEntity::class
     ],
     version = 1,
-    autoMigrations = [
-        AutoMigration(from = 1, to = 2)
-    ],
-    exportSchema = true
 )
 internal abstract class MtmDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao

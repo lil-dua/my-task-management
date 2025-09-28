@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 rootProject.name = "My Task Management"
 include(":app")
 include(":feature:login")
-include(":feature:settings")
+include(":feature:profile")
 include(":feature:taskdetails")
 include(":feature:addtask")
 include(":core:ui")

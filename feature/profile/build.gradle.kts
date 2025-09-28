@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
@@ -9,17 +9,14 @@ plugins {
 }
 
 android {
-    namespace = "dev.ryan.mytaskmanagement"
+    namespace = "dev.ryan.feature.profile"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "dev.ryan.mytaskmanagement"
         minSdk = 26
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -47,25 +44,19 @@ android {
 
 dependencies {
 
-    implementation(project(":core:ui"))
     implementation(project(":core:designsystem"))
-    implementation(project(":core:data"))
-    implementation(project(":core:database"))
-    implementation(project(":core:domain"))
-
-    implementation(project(":feature:home"))
-    implementation(project(":feature:profile"))
-    implementation(project(":feature:addtask"))
-    implementation(project(":feature:login"))
-    implementation(project(":feature:taskdetails"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.material3)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.appcompat)
+
+    // compose
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.foundation.layout)
+    implementation(libs.material3)
 
     // hilt
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
