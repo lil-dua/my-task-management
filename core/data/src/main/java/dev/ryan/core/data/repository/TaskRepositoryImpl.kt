@@ -12,7 +12,7 @@ import kotlin.collections.map
 
 class TaskRepositoryImpl(
     private val taskDao: TaskDao
-): TaskRepository {
+) : TaskRepository {
     override fun getTasksByDate(date: Long): Flow<List<Task>> {
         return taskDao.getTasksByDate(date).map { entities ->
             entities.map { it.toDomain() }

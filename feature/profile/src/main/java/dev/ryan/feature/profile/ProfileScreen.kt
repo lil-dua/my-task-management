@@ -17,31 +17,49 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.ryan.core.ui.DevicePreviews
 
 @Composable
-fun SettingsScreen(
-    viewModel: ProfileViewModel = hiltViewModel()
+internal fun ProfileRoute(
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel = hiltViewModel(),
+    onNavigateToHome: () -> Unit = {},
+    onNavigateToAddTask: () -> Unit = {},
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val profileState by viewModel.uiState.collectAsState()
+    ProfileScreen(
+        profileState = profileState,
+        modifier = modifier,
+        onToggleNotifications = { viewModel.toggleNotifications() },
+        onToggleDarkTheme = { viewModel.toggleDarkTheme() }
+    )
 
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
+}
+@Composable
+fun ProfileScreen(
+    profileState: ProfileUiState,
+    modifier: Modifier,
+    onToggleNotifications: () -> Unit = {},
+    onToggleDarkTheme: () -> Unit = {},
+) {
+
+    Column(modifier.fillMaxSize().padding(16.dp)) {
         Row(
-            Modifier.fillMaxWidth(),
+            modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("Enable Notifications")
             Switch(
-                checked = state.notificationsEnabled,
-                onCheckedChange = { viewModel.toggleNotifications() }
+                checked = profileState.notificationsEnabled,
+                onCheckedChange = { onToggleNotifications }
             )
         }
 
         Row(
-            Modifier.fillMaxWidth(),
+            modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("Dark Theme")
             Switch(
-                checked = state.darkThemeEnabled,
-                onCheckedChange = { viewModel.toggleDarkTheme() }
+                checked = profileState.darkThemeEnabled,
+                onCheckedChange = { onToggleDarkTheme }
             )
         }
     }
@@ -50,6 +68,9 @@ fun SettingsScreen(
 @DevicePreviews
 @Composable
 fun SettingsScreenPreview() {
-    SettingsScreen()
+    ProfileScreen(
+        profileState = ProfileUiState(),
+        modifier = Modifier
+    )
 }
 

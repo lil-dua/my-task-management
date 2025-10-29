@@ -17,26 +17,46 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.ryan.core.ui.DevicePreviews
 
 @Composable
-fun AddTaskScreen(
-    viewModel: AddTaskViewModel = hiltViewModel()
+internal fun AddTaskRoute(
+    modifier: Modifier = Modifier,
+    viewModel: AddTaskViewModel = hiltViewModel(),
+    onNavigateToHome: () -> Unit = {},
+    onNavigateToProfile: () -> Unit = {},
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val addTaskUiState by viewModel.uiState.collectAsState()
+    AddTaskScreen(
+        addTaskUiState = addTaskUiState,
+        modifier = modifier,
+        onTitleChanged = {viewModel.onTitleChanged(title = it)},
+        onDescriptionChanged = {viewModel.onDescriptionChanged(desc = it)},
+        onSaveTask = {viewModel.onSaveTask()}
+    )
+}
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+
+@Composable
+fun AddTaskScreen(
+    addTaskUiState: AddTaskUiState,
+    modifier: Modifier,
+    onTitleChanged: (String) -> Unit = {},
+    onDescriptionChanged: (String) -> Unit = {},
+    onSaveTask: () -> Unit = {},
+) {
+    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         OutlinedTextField(
-            value = state.title,
-            onValueChange = { viewModel.onTitleChanged(it) },
+            value = addTaskUiState.title,
+            onValueChange = { onTitleChanged(it) },
             label = { Text("Task Title") }
         )
 
         OutlinedTextField(
-            value = state.description,
-            onValueChange = { viewModel.onDescriptionChanged(it) },
+            value = addTaskUiState.description,
+            onValueChange = { onDescriptionChanged(it) },
             label = { Text("Description") }
         )
 
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = { viewModel.onSaveTask() }) {
+        Spacer(modifier.height(16.dp))
+        Button(onClick = { onSaveTask }) {
             Text("Save Task")
         }
     }
@@ -45,6 +65,9 @@ fun AddTaskScreen(
 @DevicePreviews
 @Composable
 fun AddTaskScreenPreview() {
-    AddTaskScreen()
+    AddTaskScreen(
+        addTaskUiState = AddTaskUiState(),
+        modifier = Modifier
+    )
 }
 

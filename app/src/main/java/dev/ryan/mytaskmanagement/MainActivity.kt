@@ -13,6 +13,9 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ryan.core.designsystem.theme.MtmTheme
 import dev.ryan.core.ui.DevicePreviews
+import dev.ryan.feature.home.HomeScreen
+import dev.ryan.feature.home.navigation.HomeRoute
+import dev.ryan.mytaskmanagement.ui.MtmApp
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -21,12 +24,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MtmTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MtmApp()
             }
         }
     }

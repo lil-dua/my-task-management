@@ -15,19 +15,34 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.ryan.core.designsystem.theme.MtmTheme
 import dev.ryan.core.ui.DevicePreviews
+import dev.ryan.feature.home.navigation.HomeRoute
+
+@Composable
+internal fun HomeRoute(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel(),
+    onNavigateToAddTask: () -> Unit = {},
+    onNavigateToProfile: () -> Unit = {},
+) {
+    val homeState by viewModel.uiState.collectAsState()
+    HomeScreen(
+        homeState = homeState,
+        modifier = modifier
+    )
+}
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    homeState: HomeUiState,
+    modifier: Modifier = Modifier
 ) {
-    val state by viewModel.uiState.collectAsState()
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Hello, ${state.userName}", style = MaterialTheme.typography.headlineSmall)
-        Text("Today's progress: ${state.completedPercent}%")
+    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+        Text("Hello, ${homeState.userName}", style = MaterialTheme.typography.headlineSmall)
+        Text("Today's progress: ${homeState.completedPercent}%")
 
-        Spacer(Modifier.height(16.dp))
-        state.taskTypes.forEach { (type, count) ->
+        Spacer(modifier.height(16.dp))
+        homeState.taskTypes.forEach { (type, count) ->
             Text("$type: $count tasks")
         }
     }
@@ -36,5 +51,7 @@ fun HomeScreen(
 @DevicePreviews
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        homeState = HomeUiState()
+    )
 }
