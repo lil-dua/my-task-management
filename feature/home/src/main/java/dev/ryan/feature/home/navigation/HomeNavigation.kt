@@ -8,6 +8,7 @@ import dev.ryan.feature.home.HomeRoute
 import kotlinx.serialization.Serializable
 
 @Serializable object HomeRoute // route for Home screen
+@Serializable object HomeBaseRoute // route for Home screen
 
 /**
  * Extension function to navigate to Home

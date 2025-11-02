@@ -48,4 +48,6 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material3)
     implementation(libs.ui.graphics)
+    implementation(libs.androidx.compose.ui.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.ui.tooling)
 }
