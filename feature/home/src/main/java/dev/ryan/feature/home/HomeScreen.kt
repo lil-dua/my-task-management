@@ -1,6 +1,5 @@
 package dev.ryan.feature.home
 
-import android.graphics.Canvas
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,18 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import dev.ryan.core.designsystem.theme.GradientColors
-import dev.ryan.core.designsystem.theme.LocalGradientColors
 import dev.ryan.core.designsystem.theme.MtmTheme
 import dev.ryan.core.ui.DevicePreviews
-import dev.ryan.feature.home.navigation.HomeRoute
 import java.util.Date
 
 @Composable
