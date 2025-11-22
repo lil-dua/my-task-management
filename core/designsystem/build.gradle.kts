@@ -49,5 +49,6 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.ui.graphics)
     implementation(libs.androidx.compose.ui.ui.tooling.preview)
+    implementation(libs.androidx.material3.adaptive.navigation.suite)
     debugImplementation(libs.androidx.compose.ui.ui.tooling)
 }

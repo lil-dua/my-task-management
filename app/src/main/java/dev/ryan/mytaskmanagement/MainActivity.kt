@@ -4,18 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ryan.core.designsystem.theme.MtmTheme
 import dev.ryan.core.ui.DevicePreviews
-import dev.ryan.feature.home.HomeScreen
-import dev.ryan.feature.home.navigation.HomeRoute
 import dev.ryan.mytaskmanagement.ui.MtmApp
+import dev.ryan.mytaskmanagement.ui.MtmAppState
+import dev.ryan.mytaskmanagement.ui.rememberMtmAppState
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,8 +20,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val appState: MtmAppState = rememberMtmAppState()
             MtmTheme {
-                MtmApp()
+                MtmApp(appState)
             }
         }
     }

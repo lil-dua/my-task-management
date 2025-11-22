@@ -1,25 +1,25 @@
 package dev.ryan.mytaskmanagement.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import dev.ryan.feature.addtask.navigation.addTaskScreen
 import dev.ryan.feature.addtask.navigation.navigateToAddTask
-import dev.ryan.feature.home.navigation.HomeRoute
+import dev.ryan.feature.home.navigation.HomeBaseRoute
 import dev.ryan.feature.home.navigation.homeScreen
 import dev.ryan.feature.home.navigation.navigateToHome
 import dev.ryan.feature.profile.navigation.navigateToProfile
 import dev.ryan.feature.profile.navigation.profileScreen
+import dev.ryan.mytaskmanagement.ui.MtmAppState
 
 val isLoggedIn = false
 
 @Composable
 fun MtmNavHost(
-    navController: NavHostController = rememberNavController(),
-    startDestination: Any = HomeRoute
+    appState: MtmAppState,
+    startDestination: Any = HomeBaseRoute
 //    startDestination: Any = if (isLoggedIn) HomeRoute else LoginRoute,
 ) {
+    val navController = appState.navController
     NavHost(
         navController = navController,
         startDestination = startDestination,
