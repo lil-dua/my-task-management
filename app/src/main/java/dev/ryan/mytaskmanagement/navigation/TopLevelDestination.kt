@@ -5,9 +5,11 @@ import dev.ryan.core.designsystem.icon.MtmIcons
 import dev.ryan.feature.home.navigation.HomeBaseRoute
 import dev.ryan.feature.home.navigation.HomeRoute
 import dev.ryan.feature.profile.navigation.ProfileRoute
+import dev.ryan.feature.task.tasklist.navigation.TaskListRoute
 import kotlin.reflect.KClass
 import dev.ryan.feature.home.R as homeR
 import dev.ryan.feature.profile.R as profileR
+import dev.ryan.feature.task.tasklist.R as taskListR
 
 enum class TopLevelDestination(
     val selectedIcon: Int,
@@ -24,6 +26,13 @@ enum class TopLevelDestination(
         titleTextId = homeR.string.feature_home_title,
         route = HomeRoute::class,
         baseRoute = HomeBaseRoute::class
+    ),
+    LIST_TASK(
+        selectedIcon = MtmIcons.AddTaskSelected,
+        unselectedIcon = MtmIcons.AddTask,
+        iconTextId = taskListR.string.feature_task_by_date_title,
+        titleTextId = taskListR.string.feature_task_by_date_title,
+        route = TaskListRoute::class
     ),
     PROFILE(
         selectedIcon = MtmIcons.ProfileSelected,

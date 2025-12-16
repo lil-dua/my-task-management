@@ -2,13 +2,14 @@ package dev.ryan.mytaskmanagement.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import dev.ryan.feature.addtask.navigation.addTaskScreen
-import dev.ryan.feature.addtask.navigation.navigateToAddTask
+import dev.ryan.feature.task.add.navigation.addTaskScreen
+import dev.ryan.feature.task.add.navigation.navigateToAddTask
 import dev.ryan.feature.home.navigation.HomeBaseRoute
 import dev.ryan.feature.home.navigation.homeScreen
 import dev.ryan.feature.home.navigation.navigateToHome
 import dev.ryan.feature.profile.navigation.navigateToProfile
 import dev.ryan.feature.profile.navigation.profileScreen
+import dev.ryan.feature.task.tasklist.navigation.taskListScreen
 import dev.ryan.mytaskmanagement.ui.MtmAppState
 
 val isLoggedIn = false
@@ -40,6 +41,10 @@ fun MtmNavHost(
         )
 
         addTaskScreen(
+            onNavigateToHome = { navController.navigateToHome() },
+            onNavigateToProfile = { navController.navigateToProfile() }
+        )
+        taskListScreen (
             onNavigateToHome = { navController.navigateToHome() },
             onNavigateToProfile = { navController.navigateToProfile() }
         )

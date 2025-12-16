@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import dev.ryan.feature.home.navigation.navigateToHome
 import dev.ryan.feature.profile.navigation.navigateToProfile
+import dev.ryan.feature.task.tasklist.navigation.navigateToListTask
 import dev.ryan.mytaskmanagement.navigation.TopLevelDestination
 
 
@@ -79,6 +80,7 @@ class MtmAppState(
 
             when (topLevelDestination) {
                 TopLevelDestination.HOME -> navController.navigateToHome(topLevelNavOptions)
+                TopLevelDestination.LIST_TASK -> navController.navigateToListTask(topLevelNavOptions)
                 TopLevelDestination.PROFILE -> navController.navigateToProfile(topLevelNavOptions)
             }
         }

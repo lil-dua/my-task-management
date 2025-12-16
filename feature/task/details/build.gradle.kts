@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
@@ -10,17 +10,14 @@ plugins {
 }
 
 android {
-    namespace = "dev.ryan.mytaskmanagement"
+    namespace = "dev.ryan.feature.task.details"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "dev.ryan.mytaskmanagement"
         minSdk = 26
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -48,28 +45,24 @@ android {
 
 dependencies {
 
-    implementation(project(":core:ui"))
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:data"))
-    implementation(project(":core:database"))
     implementation(project(":core:domain"))
-
-    implementation(project(":feature:home"))
-    implementation(project(":feature:profile"))
-    implementation(project(":feature:task:add"))
-    implementation(project(":feature:login"))
-    implementation(project(":feature:task:details"))
-    implementation(project(":feature:task:tasklist"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.adaptive)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.appcompat)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+
+    // compose
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.foundation.layout)
+    implementation(libs.material3)
 
     // hilt
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation(libs.kotlinx.serialization.json)
 }
