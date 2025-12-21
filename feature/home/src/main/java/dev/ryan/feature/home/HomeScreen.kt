@@ -1,7 +1,9 @@
 package dev.ryan.feature.home
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,11 +14,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,9 +34,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.ryan.core.designsystem.component.MtmBackground
 import dev.ryan.core.designsystem.theme.MtmTheme
 import dev.ryan.core.ui.DevicePreviews
 import java.util.Date
@@ -44,22 +56,30 @@ internal fun HomeRoute(
     val homeState by viewModel.uiState.collectAsState()
     HomeScreen(
         homeState = homeState,
-        modifier = modifier
+        modifier = modifier,
+        onNavigateToProfile = onNavigateToProfile
     )
 }
 
 @Composable
 fun HomeScreen(
     homeState: HomeUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToProfile: () -> Unit
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(top = 60.dp, start = 24.dp, end = 24.dp)
     ) {
 
         // Header section
+        HomeHeaderSection(
+            date = Date(),
+            userAvatar = painterResource(dev.ryan.core.designsystem.R.drawable.ic_profile_selected),
+            onNotificationClick = {},
+            onProfileClick = onNavigateToProfile
+        )
 
         // Greeting user
         Text("Hello, ${homeState.userName}", style = MaterialTheme.typography.headlineSmall)
@@ -81,11 +101,66 @@ fun HomeScreen(
 @Composable
 private fun HomeHeaderSection(
     date: Date,
-    userAvatar: BitmapPainter,
+    userAvatar: Painter,
     onNotificationClick: () -> Unit,
     onProfileClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        Column {
+            Text(
+                text = "Monday",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W400
+                )
+            )
+            Text(
+                text = "25 September",
+                style = TextStyle(
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.W700
+                )
+            )
+        }
+
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // search button
+            OutlinedIconButton(
+                onClick = onNotificationClick,
+                modifier = modifier.size(56.dp)
+            ) {
+                Icon(
+                    painter = painterResource(dev.ryan.core.designsystem.R.drawable.ic_add_task),
+                    contentDescription = null
+                )
+            }
+
+            Spacer(modifier = modifier.width(20.dp))
+
+            // profile image
+            Image(
+                modifier = modifier
+                    .background(
+                        shape = CircleShape, color = Color.Black
+                    )
+                    .size(56.dp)
+                    .clickable(onClick = onProfileClick),
+                painter = userAvatar,
+                contentDescription = "User avatar"
+            )
+        }
+    }
 
 }
 
@@ -130,7 +205,6 @@ private fun MonthlyProgressChart(
         }
 
     }
-
 
 
 }
@@ -233,8 +307,11 @@ private fun StatsCard(
 @Composable
 fun HomeScreenPreview() {
     MtmTheme {
-        HomeScreen(
-            homeState = HomeUiState()
-        )
+        MtmBackground {
+            HomeScreen(
+                homeState = HomeUiState(),
+                onNavigateToProfile = {}
+            )
+        }
     }
 }
