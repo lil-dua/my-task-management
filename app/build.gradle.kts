@@ -63,6 +63,9 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)

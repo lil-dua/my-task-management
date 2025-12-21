@@ -42,4 +42,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
 }

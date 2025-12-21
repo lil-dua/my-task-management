@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.androidx.ui.tooling)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
 
     // compose
     implementation(libs.androidx.runtime)

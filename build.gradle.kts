@@ -20,7 +20,7 @@ testAggregation {
     }
 }
 
-val testTasks = listOf("test", "testDebugUnitTest")
+val testTasks = listOf("testDebugUnitTest")
 testTasks.forEach { taskName ->
     tasks.register(taskName) {
         finalizedBy("jacocoAggregateReport", "testAggregatedReport")
