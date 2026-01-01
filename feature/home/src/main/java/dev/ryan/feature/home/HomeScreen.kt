@@ -22,7 +22,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,11 +80,20 @@ fun HomeScreen(
             onProfileClick = onNavigateToProfile
         )
 
-        // Greeting user
-        Text("Hello, ${homeState.userName}", style = MaterialTheme.typography.headlineSmall)
-        Text("Today's progress: ${homeState.completedPercent}%")
+        Spacer(Modifier.height(26.dp))
 
-        Spacer(modifier.height(16.dp))
+        // Greeting user
+        Text("Hello,")
+        Text(
+            text = homeState.userName,
+            style = TextStyle(
+                fontSize = 24.sp,
+                fontWeight = FontWeight.W700
+            )
+        )
+
+        Spacer(modifier.height(26.dp))
+
         homeState.taskTypes.forEach { (type, count) ->
             Text("$type: $count tasks")
         }
@@ -93,6 +101,7 @@ fun HomeScreen(
         // Progress chart
         MonthlyProgressChart(progress = 12f)
 
+        Spacer(modifier.height(26.dp))
         // StatsGrid
         StatsGrid(modifier = modifier)
     }
@@ -167,17 +176,30 @@ private fun HomeHeaderSection(
 @Composable
 private fun MonthlyProgressChart(
     progress: Float,
-    modifier: Modifier = Modifier.size(100.dp)
+    modifier: Modifier = Modifier
 ) {
-    Row {
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .background(
+                color = Color.Cyan,
+                shape = RoundedCornerShape(24.dp)
+            )
+            .padding(20.dp)
+    ) {
         val totalTaskPerMonth = 55
         val sweepTodo = 12f / totalTaskPerMonth * 360f
         val sweepInProgress = 7f / totalTaskPerMonth * 360f
         val sweepDone = 22f / totalTaskPerMonth * 360f
         val sweepPending = 14f / totalTaskPerMonth * 360f
-        val strokeWidth = 36f
+        val strokeWidth = 56f
 
-        Canvas(modifier = modifier) {
+        Canvas(
+            modifier = modifier.size(80.dp)
+        ) {
             var startAngle = -90f
 
             fun drawSegment(color: Color, sweep: Float) {
@@ -196,9 +218,9 @@ private fun MonthlyProgressChart(
             drawSegment(Color.Red, sweepPending)
             drawSegment(Color.Gray, sweepTodo)
         }
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.width(16.dp))
 
-        Column(modifier = Modifier.weight(1f)) {
+        Column(modifier = Modifier) {
             TaskProgressBar("Done", 12, 25, Color.Green)
             Spacer(Modifier.height(16.dp))
             TaskProgressBar("In Progress", 17, 20, Color.Blue)
@@ -238,7 +260,7 @@ private fun StatsGrid(
         columns = GridCells.Fixed(count = 2),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
         verticalArrangement = Arrangement.spacedBy(space = 12.dp),
-        modifier = modifier.padding(16.dp)
+        modifier = modifier
     ) {
         item {
             StatsCard(
